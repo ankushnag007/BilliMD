@@ -5,7 +5,7 @@ import Billing from "./componenets/Billing";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-3">
       <div>
         <div>
           <h1 className="text-center font-bold text-2xl from-neutral-300">CUSTOM PAYMENT PORTAL</h1>

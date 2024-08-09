@@ -72,12 +72,12 @@ const Billing = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleCardClick = (providerName) => {
+  const handleCardClick = (providerName: React.SetStateAction<string>) => {
     setSelectedProvider(providerName);
     calculatePrice(providerSize, providerName);
   };
 
-  const handleProviderSizeChange = (e) => {
+  const handleProviderSizeChange = (e: { target: { value: string; }; }) => {
     const size = parseInt(e.target.value);
     setProviderSize(size);
     if (selectedProvider) {
@@ -89,7 +89,7 @@ const Billing = () => {
     setLocations(e.target.value);
   };
 
-  const calculatePrice = (size, provider) => {
+  const calculatePrice = (size: number, provider: React.SetStateAction<string>) => {
     const basePrice = basePrices[provider] || 0;
     const calculatedPrice = basePrice * size;
     setPrice(calculatedPrice);
@@ -131,7 +131,7 @@ const Billing = () => {
     setPrice(0);
   };
 
-  const updateItem = (index, newSize) => {
+  const updateItem = (index: number, newSize: number) => {
     const updatedItems = [...selectedItems];
     const updatedItem = updatedItems[index];
     updatedItem.providerSize = newSize;
@@ -236,11 +236,13 @@ const Billing = () => {
               </div>
 
               <div className="pt-10">
-                <div className="p-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white rounded-lg">
-                  <h3 className="text-lg font-bold">Selected Provider: {selectedProvider}</h3>
-                  <h3 className="text-lg font-bold">Calculated Price: ${price}</h3>
-                </div>
-              </div>
+  <div className="p-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white rounded-lg animate-fade-in">
+    <h1 className="text-lg font-bold">Estimated Cost</h1>
+    <h3 className="text-lg font-bold">Selected Provider: {selectedProvider}</h3>
+    <h3 className="text-lg font-bold">Calculated Price: ${price}</h3>
+  </div>
+</div>
+
             </div>
 
             {/* View Cart Button */}
