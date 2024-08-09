@@ -47,6 +47,7 @@ const Billing = () => {
   const [showToast, setShowToast] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true); // New state for loading
+  const [showButton, setShowButton] = useState(true); // State for button visibility
 
   useEffect(() => {
     // Simulate loading delay
@@ -55,6 +56,20 @@ const Billing = () => {
     }, 2000); // 2 seconds delay
 
     return () => clearTimeout(timer); // Clean up the timer on component unmount
+  }, []);
+
+  useEffect(() => {
+    // Handle scroll events to show/hide the button
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowButton(false);
+      } else {
+        setShowButton(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleCardClick = (providerName) => {
@@ -229,7 +244,7 @@ const Billing = () => {
             </div>
 
             {/* View Cart Button */}
-            <div className="fixed top-20 right-0 m-6 bg-white z-50">
+            <div className={`fixed top-20 right-0 m-6 bg-white z-50 transition-transform ${showButton ? 'translate-y-0' : 'translate-y-full'}`}>
               <Drawer>
                 <DrawerTrigger asChild>
                   <Button className="bg-green-400">View Cart</Button>
